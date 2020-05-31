@@ -39,13 +39,21 @@ handleItem = (e) => {
 handleinput = (e, i) => {
   console.log("value",i, e.target.value)
   console.log("name", e.target.name)
+  const temp = e.target.value
   // console.log(this.state.cluster[i].name)
-  this.state.cluster[i].name = e.target.value
+  // this.state.cluster[i].name = e.target.value
 
 
-  // this.setState(prevState => ({
-  //   cluster : [{prevState.cluster[i].name : e.target.value}]
-  // }))
+  console.log("value when add cluster", this.state.cluster[i])
+  this.setState(prevState => ({
+    cluster : prevState.cluster.filter((ele, j) => {
+      if(i == j){
+        return ele.name = temp
+      } else {
+        return ele
+      }
+    })
+  }))
 
 
 }
@@ -62,16 +70,44 @@ handleInnerItem = (i) => {
   //   cluster : [prevState.cluster.item, ]
   // }))
   console.log(this.state.cluster[i].item.push(temp))
+  this.setState(prevState => ({
+    cluster : prevState.cluster.filter((ele, j) => {
+      if(i == j){
+        return [...ele.item, temp]
+      } else {
+     return ele 
+  }
+    })
+  }))
 }
 
 
 handleInnerItemValue = (e, i , j) => {
-  this.state.cluster[i].item[j] = e.target.value
+  // this.state.cluster[i].item[j] = e.target.value
+
+  console.log(i, j)
+  const temp = e.target.value
+  this.setState(prevState => ({
+    cluster : prevState.cluster.filter((ele, k) => {
+      if(i == k){
+        // return ele.item.filter((item, l) => {
+        //   if(l == j){
+        //     return item[l] = temp
+        //   } else {
+        //     return item
+        //   }
+        // })
+        return ele.item[j] = temp
+      } else {
+        return ele
+      }
+    })
+  }))
 }
 
 
 handleItemChange = (e, i) => {
-  this.state.item[i] = e.target.value
+  // this.state.item[i] = e.target.value
 }
 
   render(){
@@ -94,11 +130,11 @@ handleItemChange = (e, i) => {
                      onChange = {(e) => this.handleinput(e,i)} ></input> &nbsp; <button onClick = {() => this.handleInnerItem(i)} >Add item</button>
                   <br></br>
                   {
-                    content.item.lemgth > 0 && content.item.map((innerItem, j) => {
+                    content.item && content.item.length > 0 && content.item.map((innerItem, j) => {
                       return (
                         <div>
-                            &nbsp;&nbsp;<p>Inner Item</p>
-                            <input type = "text"  onChange = {(e) => this.handleInnerItemValue(e, i, j)} />
+                            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Inner Item</p>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type = "text"  onChange = {(e) => this.handleInnerItemValue(e, i, j)} />
                         </div>
                       )
                     })
