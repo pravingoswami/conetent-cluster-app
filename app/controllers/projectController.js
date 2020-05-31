@@ -13,3 +13,6 @@ module.exports.createProject = (req, res) => {
         .catch(err => res.json(err))
 }
 
+module.exports.editProject = (req, res) => {
+    
+}
