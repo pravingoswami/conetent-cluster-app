@@ -13,9 +13,6 @@ const projectModel = new Schema({
         name : {
             type : String
         },
-        subCluster : {
-            type : [Object]
-        },
         item : {
             type : [String]
         }
