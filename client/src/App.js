@@ -30,7 +30,7 @@ handleCluster = (e) => {
 }
 
 handleItem = (e) => {
-  const temp = ""
+  const temp = " "
   this.setState(prevState => ({
     item : [...prevState.item, temp]
   }))
@@ -44,10 +44,11 @@ handleinput = (e, i) => {
   // this.state.cluster[i].name = e.target.value
 
 
+  // we check for the current index value i is the current index value and j is finding the mathing index
   console.log("value when add cluster", this.state.cluster[i])
   this.setState(prevState => ({
     cluster : prevState.cluster.filter((ele, j) => {
-      if(i == j){
+      if(i === j){
         return ele.name = temp
       } else {
         return ele
@@ -72,7 +73,7 @@ handleInnerItem = (i) => {
   console.log(this.state.cluster[i].item.push(temp))
   this.setState(prevState => ({
     cluster : prevState.cluster.filter((ele, j) => {
-      if(i == j){
+      if(i === j){
         return [...ele.item, temp]
       } else {
      return ele 
@@ -89,9 +90,9 @@ handleInnerItemValue = (e, i , j) => {
   const temp = e.target.value
   this.setState(prevState => ({
     cluster : prevState.cluster.filter((ele, k) => {
-      if(i == k){
+      if(i === k){
         // return ele.item.filter((item, l) => {
-        //   if(l == j){
+        //   if(l === j){
         //     return item[l] = temp
         //   } else {
         //     return item
@@ -107,8 +108,22 @@ handleInnerItemValue = (e, i , j) => {
 
 
 handleItemChange = (e, i) => {
-  // this.state.item[i] = e.target.value
+  const temp = e.target.value
+  console.log(i, "index value", temp)
+  // this.setState(prevState => ({
+  //   item : prevState.item.filter((ele, j) => {
+  //     console.log(ele, "ele", j, i)
+  //     if(i === j){
+  //       return ele = temp
+  //     } else {
+  //       return ele
+  //     }
+  //   })
+  // }))
+  console.log( "state value", this.state)
 }
+
+
 
   render(){
     return(
@@ -125,16 +140,18 @@ handleItemChange = (e, i) => {
                  {console.log("check value", content.item, i)}
                  <p>Cluster Name</p>
                   <input type = "text"
+                  key = {i}
                     //  value = {}
                      name = "content.name" 
                      onChange = {(e) => this.handleinput(e,i)} ></input> &nbsp; <button onClick = {() => this.handleInnerItem(i)} >Add item</button>
+                     &nbsp;&nbsp;<button onClick = {() => {this.handleRemoveCluster(i)}} >Remove</button>
                   <br></br>
                   {
                     content.item && content.item.length > 0 && content.item.map((innerItem, j) => {
                       return (
                         <div>
                             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Inner Item</p>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type = "text"  onChange = {(e) => this.handleInnerItemValue(e, i, j)} />
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type = "text" key = {i}  onChange = {(e) => this.handleInnerItemValue(e, i, j)} />
                         </div>
                       )
                     })
@@ -151,6 +168,7 @@ handleItemChange = (e, i) => {
                   <p>Item Name</p>
                   <input type = "text"
                   name = "item"
+                  key = {i}
                   onChange = {(e) => this.handleItemChange(e, i)}
                   />
                 </div>
